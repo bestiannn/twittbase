@@ -5,6 +5,8 @@ const useFollowing = create(set => ({
     usernamesList : {},
     setFollowingList: (followingList) => set({ followingList }),
     setUsernamesList: (usernamesList) => set({ usernamesList }),
+    resetFollowingList: () => set({ followingList: [] }),
+    resetUsernamesList: () => set({ usernamesList: {} }),
 }))
 
 export default useFollowing

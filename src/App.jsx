@@ -6,6 +6,7 @@ import Home from './components/Home';
 import Login from './components/Login';
 import NavBar from './components/NavBar';
 import Profile from './components/Profile';
+import Register from './components/Register';
 import Search from './components/Search';
 import { auth, db } from './firebase/config';
 import useFollowing from './global/following';
@@ -14,15 +15,19 @@ import useUser from './global/user';
 const App = () => {
   const [isLogged] = useAuthState(auth);
   const [isLoading, setIsLoading] = useState(true);
-  const { username, setUid, setUsername } = useUser();
-  const { followingList, setFollowingList, setUsernamesList } = useFollowing();
+  const { username, uid, setUid, setUsername } = useUser();
+  const { followingList, usernamesList, setFollowingList, setUsernamesList } = useFollowing();
 
   useEffect(() => {
     if (isLogged) {
       (async () => {
         const docRef = doc(db, 'users', isLogged.uid);
         const docSnap = await getDoc(docRef);
-        if (!docSnap.exists()) {
+
+        if (docSnap.exists()) {
+          setUsername(docSnap.data().username);
+          setFollowingList(docSnap.data().following?.length > 0 ? docSnap.data().following : []);
+        } else {
           // create document in users if it doesn't exist
           await setDoc(doc(db, 'users', isLogged.uid), {
             uid: isLogged.uid,
@@ -31,16 +36,9 @@ const App = () => {
           });
           setUsername(isLogged.uid);
         }
-        else {
-          setUsername(docSnap.data().username);
-          setFollowingList(docSnap.data().following?.length > 0 ? docSnap.data().following : []);
-        }
-      })();
 
+      })();
       setUid(isLogged.uid);
-    } else {
-      setUid(null);
-      setUsername(null);
     }
     setIsLoading(false);
   }, [isLogged]);
@@ -48,34 +46,20 @@ const App = () => {
   useEffect(() => {
     if (isLogged) {
       (async () => {
-        await setDoc(doc(db, 'users', isLogged.uid), {
-          username
-        }, { merge: true });
+        const q = query(
+          collection(db, "users"),
+          where("uid", "in", followingList.length > 0 ? followingList : [''])
+        );
+        const querySnapshot = await getDocs(q);
+        const usernames = { [uid]: username };
+        querySnapshot.forEach((doc) => {
+          usernames[doc.data().uid] = doc.data().username;
+        }
+        );
+        setUsernamesList(usernames);
       })();
     }
-  }, [username]);
-
-  useEffect(() => {
-    if (isLogged) {
-      if (followingList.length > 0) {
-        (async () => {
-          const q = query(
-            collection(db, "users"),
-            where("uid", "in", followingList)
-          );
-          const querySnapshot = await getDocs(q);
-          const usernames = {};
-          querySnapshot.forEach((doc) => {
-            usernames[doc.data().uid] = doc.data().username;
-          }
-          );
-          setUsernamesList(usernames);
-        })();
-      } else {
-        setUsernamesList({});
-      }
-    }
-  }, [followingList]);
+  }, [followingList, usernamesList]);
 
   return (
     <>
@@ -95,6 +79,7 @@ const App = () => {
                 <Route path='/user/:usernameProfile'>{({ usernameProfile }) => <Profile usernameProfile={usernameProfile} />}</Route>
                 <Route path='/search'><Search /></Route>
                 <Route path='/login'><Login /></Route>
+                <Route path='/register'><Register /></Route>
                 <Redirect to='/' />
               </Switch>
             </div>

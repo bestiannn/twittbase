@@ -17,13 +17,20 @@ const Search = () => {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    if(search === "") return;
     setLoading(true);
-    const usersRef = collection(db, 'users');
-    const usersSnap = await getDocs(usersRef);
-    const users = usersSnap.docs.map(doc => doc.data());
-    const filteredUsers = users.filter(user => user.username.includes(search) && user.uid !== currentUID);
-    setUsers(filteredUsers);
+    if (search !== "") {
+      const usersRef = collection(db, 'users');
+      const usersSnap = await getDocs(usersRef);
+      const users = usersSnap.docs.map(doc => doc.data());
+      const filteredUsers = users.filter(user => user.username.includes(search) && user.uid !== currentUID);
+      setUsers(filteredUsers);
+    } else {
+      const usersRef = collection(db, 'users');
+      const usersSnap = await getDocs(usersRef);
+      const users = usersSnap.docs.map(doc => doc.data());
+      const filteredUsers = users.filter(user => user.uid !== currentUID);
+      setUsers(filteredUsers);
+    }
     setLoading(false);
   }
 

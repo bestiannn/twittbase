@@ -1,20 +1,23 @@
 import { addDoc, collection, getDocs, query, serverTimestamp, where } from 'firebase/firestore';
 import { useEffect, useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useLocation } from 'wouter';
 import { auth, db } from '../firebase/config';
 import useUser from '../global/user';
+import ChangeUserName from './ChangeUserName';
 import Follow from './Follow';
 import Tweets from './Tweets'
 
 const Profile = ({ usernameProfile }) => {
-  const [ isLogged ] = useAuthState(auth);
+  const [isLogged] = useAuthState(auth);
   const { uid, username } = useUser();
-  const [ newTweet, setNewTweet ] = useState('');
-  const [ uidCurrentUser, setUidCurrentUser ] = useState('');
+  const [newTweet, setNewTweet] = useState('');
+  const [uidCurrentUser, setUidCurrentUser] = useState('');
+  const [, setLocation] = useLocation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (newTweet.length === 0 && uid === null) return;
+    if (newTweet.length === 0 || uid === null) return;
     await addDoc(collection(db, 'tweets'), {
       uid,
       createdAt: serverTimestamp(),
@@ -24,6 +27,12 @@ const Profile = ({ usernameProfile }) => {
   }
 
   useEffect(() => {
+
+    if (usernameProfile == "null") {
+      setLocation('/');
+      return;
+    }
+
     const q = query(
       collection(db, "users"),
       where("username", "==", usernameProfile)
@@ -43,6 +52,12 @@ const Profile = ({ usernameProfile }) => {
 
       {
         isLogged && username === usernameProfile && (
+          <ChangeUserName />
+        )
+      }
+
+      {
+        isLogged && username === usernameProfile && (
           <form onSubmit={handleSubmit} className='flex flex-col gap-3'>
             <textarea rows="3" className='w-full rounded-xl text-ctp-crust px-3 py-2' maxLength={280} placeholder="What's happening?" value={newTweet} onChange={(e) => setNewTweet(e.target.value)} />
             <button type="submit" className='border-2 rounded-xl px-5 py-1 w-full'>Tweet</button>
@@ -51,7 +66,7 @@ const Profile = ({ usernameProfile }) => {
       }
       {
         isLogged && username !== usernameProfile && (
-          <Follow userUID={newUid} />
+          <Follow userUID={uidCurrentUser} />
         )
       }
 

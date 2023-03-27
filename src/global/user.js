@@ -6,6 +6,9 @@ const useUser = create(set => ({
 
     setUid: (uid) => set({ uid }),
     setUsername: (username) => set({ username }),
+
+    resetUid: () => set({ uid: null }),
+    resetUsername: () => set({ username: null }),
 }))
 
 export default useUser
