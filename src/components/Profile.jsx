@@ -47,8 +47,8 @@ const Profile = ({ usernameProfile }) => {
   }, []);
 
   return (
-    <div>
-      <h2 className='text-2xl font-bold mt-5 mb-10'>@{usernameProfile}</h2>
+    <div className='pb-10'>
+      <h2 className='text-2xl font-bold my-5'>@{usernameProfile}</h2>
 
       {
         isLogged && username === usernameProfile && (
@@ -58,7 +58,7 @@ const Profile = ({ usernameProfile }) => {
 
       {
         isLogged && username === usernameProfile && (
-          <form onSubmit={handleSubmit} className='flex flex-col gap-3'>
+          <form onSubmit={handleSubmit} className='flex flex-col gap-3 mb-5'>
             <textarea rows="3" className='w-full rounded-xl text-ctp-crust px-3 py-2' maxLength={280} placeholder="What's happening?" value={newTweet} onChange={(e) => setNewTweet(e.target.value)} />
             <button type="submit" className='border-2 rounded-xl px-5 py-1 w-full'>Tweet</button>
           </form>

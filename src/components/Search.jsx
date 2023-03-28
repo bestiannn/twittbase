@@ -1,5 +1,5 @@
 import { collection, getDocs } from 'firebase/firestore';
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useLocation } from 'wouter';
 import { db } from '../firebase/config';
 import useUser from '../global/user';
@@ -36,8 +36,8 @@ const Search = () => {
 
   return (
     <div>
-      <h1 className='text-xl font-bold mb-5 mt-3'>Search</h1>
-      <form onSubmit={handleSearch} className="flex flex-col gap-3">
+      <h1 className='text-2xl font-bold mb-5 mt-3'>Search</h1>
+      <form onSubmit={handleSearch} className="flex flex-col gap-3 my-5">
         <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="username" className="w-full rounded-xl text-ctp-crust px-3 py-1" />
         <button type='submit' className='border-2 rounded-xl px-5 py-1 w-full'>Search</button>
       </form>
@@ -50,7 +50,7 @@ const Search = () => {
           <ul>
             {users.length === 0 && <p>No users found</p>}
             {users && users.map(({ uid, username }) => (
-              <li key={uid} className="bg-ctp-base hover:bg-ctp-surface0 my-2 cursor-pointer" onClick={() => handleGoToProfile(username)}>{username}</li>
+              <li key={uid} className="bg-ctp-base hover:bg-ctp-surface0 my-3 cursor-pointer py-2 px-3 rounded-xl" onClick={() => handleGoToProfile(username)}>@{username}</li>
             ))}
           </ul>
         )

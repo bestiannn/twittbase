@@ -1,4 +1,5 @@
-import React from 'react'
+import { FiLogIn, FiLogOut, FiUser } from 'react-icons/fi';
+import { BsSearch } from 'react-icons/bs';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, useLocation } from 'wouter'
 import { auth } from '../firebase/config'
@@ -11,7 +12,7 @@ const NavBar = () => {
     const { resetFollowingList, resetUsernamesList } = useFollowing();
     const [, setLocation] = useLocation();
 
-    const handleLogout = async() => {
+    const handleLogout = async () => {
         await auth.signOut();
         resetFollowingList();
         resetUsernamesList();
@@ -22,32 +23,34 @@ const NavBar = () => {
 
     return (
         <>
-            <nav className='flex justify-between text-lg font-bold'>
-                
+            <nav className='flex justify-between text-lg font-bold px-5 py-2'>
+
                 <Link href='/'>
-                    <a>TwittBase</a>
+                    <a title='TwittBase' className='text-xl'>TwittBase</a>
                 </Link>
 
-                {
-                    isLogged && (
-                        <Link href={`/user/${username}`}>
-                            <a>My Profile</a>
-                        </Link>
-                    )
-                }
+                <div className="flex gap-5 text-2xl">
+                    {
+                        isLogged && (
+                            <Link href={`/user/${username}`}>
+                                <FiUser className='cursor-pointer' title='My profile' />
+                            </Link>
+                        )
+                    }
 
-                <Link href='/search'>
-                    <a>Search</a>
-                </Link>
+                    <Link href='/search'>
+                        <BsSearch className='cursor-pointer' title='Search' />
+                    </Link>
 
-                {
-                    !isLogged && <Link href='/login'><a>Login</a></Link>
-                }
+                    {
+                        !isLogged && <Link href='/login' className="text-cpt-text cursor-pointer" title='Login'><FiLogIn /></Link>
+                    }
 
-                {
-                    isLogged && <button onClick={handleLogout}>Logout</button>
-                }
-                
+                    {
+                        isLogged && <button onClick={handleLogout} className="text-cpt-text cursor-pointer" title='Logout'><FiLogOut /></button>
+                    }
+                </div>
+
             </nav>
             <hr />
         </>

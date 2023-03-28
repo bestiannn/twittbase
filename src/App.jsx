@@ -73,15 +73,17 @@ const App = () => {
         ) : (
           <div className='bg-ctp-crust text-ctp-text'>
             <div className='min-h-screen container mx-auto'>
-              <NavBar />
-              <Switch>
-                <Route path='/'><Home /></Route>
-                <Route path='/user/:usernameProfile'>{({ usernameProfile }) => <Profile usernameProfile={usernameProfile} />}</Route>
-                <Route path='/search'><Search /></Route>
-                <Route path='/login'><Login /></Route>
-                <Route path='/register'><Register /></Route>
-                <Redirect to='/' />
-              </Switch>
+              <div className="w-full xl:w-1/2 mx-auto">
+                <NavBar />
+                <Switch>
+                  <Route path='/'><Home /></Route>
+                  <Route path='/user/:usernameProfile'>{({ usernameProfile }) => <Profile usernameProfile={usernameProfile} />}</Route>
+                  <Route path='/search'><Search /></Route>
+                  <Route path='/login'><Login /></Route>
+                  <Route path='/register'><Register /></Route>
+                  <Redirect to='/' />
+                </Switch>
+              </div>
             </div>
           </div>
         )

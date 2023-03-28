@@ -26,21 +26,28 @@ const ChangeUserName = () => {
         setUsername(newUsername);
         setNewUsername('');
         setShowForm(false);
-        
+
         setLocation('/user/' + newUsername);
     }
 
     return (
-        <div className="my-5">
-            <button onClick={() => setShowForm(!showForm)} className="border-2 rounded-xl px-5 py-1 w-full">
-                Change username
-            </button>
+        <div className="mt-5 mb-20">
+            {
+                !showForm && (
+                    <button onClick={() => setShowForm(true)} className="border-2 rounded-xl px-5 py-1 w-full">
+                        Change username
+                    </button>
+                )
+            }
 
             {
                 showForm && (
                     <form className="flex flex-col gap-3 my-5" onSubmit={handleSubmit}>
                         <input type="text" placeholder="New username" className="w-full rounded-xl text-ctp-crust px-3 py-2" value={newUsername} onChange={(e) => setNewUsername(e.target.value)} />
-                        <button type="submit" className="border-2 rounded-xl px-5 py-1 w-full">Change</button>
+                        <div className="flex gap-5">
+                            <button onClick={() => setShowForm(false)} className="border-2 rounded-xl px-5 py-1 w-full">Cancel</button>
+                            <button type="submit" className="border-2 rounded-xl px-5 py-1 w-full">Change</button>
+                        </div>
                     </form>
                 )
             }
