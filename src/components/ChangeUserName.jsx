@@ -12,6 +12,7 @@ const ChangeUserName = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (newUsername.length === 0 || newUsername.length > 15) return;
         const usersRef = collection(db, 'users');
         const q = query(usersRef, where('username', '==', newUsername));
         const querySnapshot = await getDocs(q);

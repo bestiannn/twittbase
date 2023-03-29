@@ -17,7 +17,7 @@ const Profile = ({ usernameProfile }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (newTweet.length === 0 || uid === null) return;
+    if (newTweet.length === 0 || uid === null || newTweet.length > 280) return;
     await addDoc(collection(db, 'tweets'), {
       uid,
       createdAt: serverTimestamp(),

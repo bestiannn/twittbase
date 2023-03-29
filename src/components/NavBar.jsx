@@ -43,11 +43,11 @@ const NavBar = () => {
                     </Link>
 
                     {
-                        !isLogged && <Link href='/login' className="text-cpt-text cursor-pointer" title='Login'><FiLogIn /></Link>
+                        !isLogged && <Link href='/login' title='Login'><FiLogIn className="text-cpt-text cursor-pointer" /></Link>
                     }
 
                     {
-                        isLogged && <button onClick={handleLogout} className="text-cpt-text cursor-pointer" title='Logout'><FiLogOut /></button>
+                        isLogged && <button onClick={handleLogout} title='Logout'><FiLogOut className="text-cpt-text cursor-pointer" /></button>
                     }
                 </div>
 

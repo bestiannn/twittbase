@@ -26,7 +26,7 @@ const Follow = ({ userUID }) => {
     }, [followingList, usernamesList]);
 
     return (
-        <button className='border-2 rounded-xl px-5 py-1 w-full' onClick={handleFollow}>
+        <button className='border-2 rounded-xl px-5 py-1 w-full bg-ctp-crust hover:bg-ctp-mantle' onClick={handleFollow}>
             {isFollowing ? 'Unfollow' : 'Follow'}
         </button>
     )
