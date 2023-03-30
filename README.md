@@ -2,6 +2,8 @@
 
 TwittBase es un clon de Twitter desarrollado utilizando tecnologías como Firebase y React. Permite a los usuarios publicar tweets, seguir a otros usuarios y autenticarse tanto con correo y contraseña como con una cuenta de Google.
 
+Si quieres saber como puedes implementar este proyecto en tu local, [sigue este tutorial](./tutorial.md).
+
 ## Tecnologías utilizadas
 TwittBase utiliza las siguientes tecnologías:
 
