@@ -27,15 +27,15 @@ npm run dev
 
 ## Crear proyecto en FireBase
 
-1. Crear proyecto en FireBase
-2. Crear base de datos en FireBase
-3. Crear cuenta de servicio en FireBase
-4. Crear archivo de configuración en FireBase
-5. Crear archivo de configuración en el proyecto
+1. [Crear proyecto en FireBase](#1-crear-proyecto-en-firebase)
+2. [Agregar Firebase a la app](#2-agregar-firebase-a-la-app)
+3. [Habilitar Firebase Authentication](#3-habilitar-firebase-authentication)
+4. [Crear base de datos en Firestore](#4-crear-base-de-datos-en-firestore)
+5. [Usa la web](#5-usa-la-web)
 
 ## Obtener variables de entorno en FireBase Console
 
-1. Crear proyecto en Firebase
+### 1. Crear proyecto en Firebase
 
     - Ir a [FireBase Console](https://console.firebase.google.com/)
     - Ve a crear proyecto
@@ -43,13 +43,13 @@ npm run dev
     - Habilita Google Analytics, si quieres
     - Crea el proyecto
 
-2. Agregar Firebase a la app
+### 2. Agregar Firebase a la app
     
     - Ve a agregar firebase a la web en la consola de firebase del proyecto recién creado
     - Agrega un nombre al proyecto y registra la app
     - Copia los valores de apiKey, authDomain, projectId, storageBucket, messagingSenderId y appId que se mostrarán ahora, y pegalos en el archivo .env (el cual deberías crear, puedes usar .env.example como base para copiar los datos)
 
-3. Habilitar Firebase Authentication
+### 3. Habilitar Firebase Authentication
 
     - Ve al apartado de autenticación en la consola de firebase del proyecto recién creado
     - Click en "Comenzar"
@@ -58,7 +58,7 @@ npm run dev
     - Habilita el proveedor "Google", y configura su nombre publico del proyecto y el correo de asistencia
 
 
-4. Crear base de datos en Firestore
+### 4. Crear base de datos en Firestore
 
     - Ve al apartado de Firestore en la consola de firebase del proyecto recién creado
     - Click en "Crear base de datos"
@@ -69,7 +69,7 @@ npm run dev
     - En "ID de la colección" ingresa "tweets", en "Campos que se indexarán" ingresa "uid" como "Ascending", "createdAt" como "Descending", "\_\_name\_\_" como "Descending", en "Alcances de las consultas" selecciona "Colección", y finalmente en crear Índice
     - Espera a que se compile en Índice
 
-5. Usa la web
+### 5. Usa la web
     
     - Prueba crear una cuenta tanto con correo y contraseña como con una cuenta de Google
     - Prueba crear y borrar Tweets
