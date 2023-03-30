@@ -1,4 +1,5 @@
-import { FiLogIn, FiLogOut, FiUser } from 'react-icons/fi';
+import { FiLogOut, FiUser } from 'react-icons/fi';
+import { MdAccountCircle } from 'react-icons/md';
 import { BsSearch } from 'react-icons/bs';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, useLocation } from 'wouter'
@@ -43,7 +44,7 @@ const NavBar = () => {
                     </Link>
 
                     {
-                        !isLogged && <Link href='/login' title='Login'><FiLogIn className="text-cpt-text cursor-pointer" /></Link>
+                        !isLogged && <Link href='/login' title='Login'><MdAccountCircle className="text-cpt-text cursor-pointer" /></Link>
                     }
 
                     {
