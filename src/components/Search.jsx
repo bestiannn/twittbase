@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useLocation } from 'wouter';
 import { allUsers, findUsers } from '../hooks/firebase';
+import { BiSearch } from 'react-icons/bi';
 
 const Search = () => {
   const [users, setUsers] = useState([]);
@@ -29,8 +30,8 @@ const Search = () => {
     <div>
       <h1 className='text-2xl font-bold mb-5 mt-3'>Search</h1>
       <form onSubmit={handleSearch} className="flex flex-col gap-3 my-5">
-        <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="username" className="w-full rounded-xl text-ctp-crust px-3 py-1" />
-        <button type='submit' className='border-2 rounded-xl px-5 py-1 w-full'>Search</button>
+        <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Write a username for search" className="w-full rounded-xl text-ctp-crust px-3 py-1" />
+        <button type='submit' className='border-2 rounded-xl px-5 py-1 w-full flex justify-center gap-3'><BiSearch className="text-xl mt-px" />Search</button>
       </form>
 
       {
