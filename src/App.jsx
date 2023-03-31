@@ -25,7 +25,7 @@ const App = () => {
           setFollowingList(following?.length > 0 ? following : []);
         } else {
           // create document in users if it doesn't exist
-          await createUserDoc(isLoading.uid);
+          await createUserDoc(isLogged.uid);
           setUsername(isLogged.uid);
         }
       })();
