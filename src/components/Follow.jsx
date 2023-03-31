@@ -1,9 +1,9 @@
-import { arrayRemove, arrayUnion, doc, getDoc, setDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db } from "../firebase/config";
+import { auth } from "../firebase/config";
 import useFollowing from "../global/following";
 import useUser from "../global/user";
+import { setFollow } from "../hooks/firebase";
 
 const Follow = ({ userUID }) => {
     const [isLogged] = useAuthState(auth);
@@ -13,9 +13,7 @@ const Follow = ({ userUID }) => {
 
     const handleFollow = async () => {
         setIsFollowing(!isFollowing);
-        await setDoc(doc(db, 'users', uid), {
-            following: isFollowing ? arrayRemove(userUID) : arrayUnion(userUID)
-        }, { merge: true });
+        await setFollow(uid, userUID, isFollowing);
         setFollowingList(isFollowing ? followingList.filter((uid) => uid !== userUID) : [...followingList, userUID]);
     }
 

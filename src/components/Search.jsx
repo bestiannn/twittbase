@@ -1,15 +1,12 @@
-import { collection, getDocs } from 'firebase/firestore';
 import { useState } from 'react'
 import { useLocation } from 'wouter';
-import { db } from '../firebase/config';
-import useUser from '../global/user';
+import { allUsers, findUsers } from '../hooks/firebase';
 
 const Search = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [, setLocation] = useLocation();
-  const { uid: currentUID } = useUser();
 
   const handleGoToProfile = (username) => {
     setLocation(`/user/${username}`);
@@ -19,17 +16,11 @@ const Search = () => {
     e.preventDefault();
     setLoading(true);
     if (search !== "") {
-      const usersRef = collection(db, 'users');
-      const usersSnap = await getDocs(usersRef);
-      const users = usersSnap.docs.map(doc => doc.data());
-      const filteredUsers = users.filter(user => user.username.includes(search) && user.uid !== currentUID);
-      setUsers(filteredUsers);
+      const usersFinded = await findUsers(search);
+      setUsers(usersFinded);
     } else {
-      const usersRef = collection(db, 'users');
-      const usersSnap = await getDocs(usersRef);
-      const users = usersSnap.docs.map(doc => doc.data());
-      const filteredUsers = users.filter(user => user.uid !== currentUID);
-      setUsers(filteredUsers);
+      const usersFinded = await allUsers();
+      setUsers(usersFinded);
     }
     setLoading(false);
   }

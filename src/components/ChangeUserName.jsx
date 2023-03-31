@@ -1,8 +1,7 @@
 import { MdCancel, MdOutlineAccountCircle } from "react-icons/md";
-import { collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
 import { useState } from "react";
 import { useLocation } from "wouter";
-import { db } from "../firebase/config";
+import {changeUsername} from "../hooks/firebase";
 import useUser from "../global/user";
 import { BsCheckCircleFill } from "react-icons/bs";
 
@@ -14,18 +13,10 @@ const ChangeUserName = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (newUsername.length === 0 || newUsername.length > 15) return;
-        const usersRef = collection(db, 'users');
-        const q = query(usersRef, where('username', '==', newUsername));
-        const querySnapshot = await getDocs(q);
-        if (querySnapshot.size > 0) {
-            alert('Username already taken');
+        const userChanged = await changeUsername(uid, newUsername);
+        if (!userChanged) {
             return;
         }
-
-        await setDoc(doc(db, 'users', uid), {
-            username: newUsername
-        }, { merge: true });
         setUsername(newUsername);
         setNewUsername('');
         setShowForm(false);
