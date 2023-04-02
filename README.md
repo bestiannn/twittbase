@@ -20,7 +20,7 @@ TwittBase utiliza las siguientes tecnologías:
 - Zustand: para la gestión del estado de la aplicación.
 
 ## Cómo acceder al proyecto
-El proyecto aún no está disponible para su acceso público.
+El proyecto está disponible en https://twittbase.netlify.app/.
 
 ## Cómo contribuir al proyecto
 Se anima a los desarrolladores a contribuir al proyecto haciendo pull requests a la rama develop.
